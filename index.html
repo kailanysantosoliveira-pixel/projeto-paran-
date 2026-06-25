@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museu Interativo: Raízes Negras e a Identidade Paranaense</title>
+    <style>
+        :root {
+            --cor-fundo: #f4f1ea;
+            --cor-texto: #2c2523;
+            --cor-primaria: #8c2d19; /* Tom de terra/resistência */
+            --cor-secundaria: #2a4d38; /* Tom do mate/floresta */
+            --cor-detalhe: #d9913c; /* Tom de ouro/açúcar/sol */
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--cor-primaria);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 0.5rem 0 0 0;
+            font-style: italic;
+            color: var(--cor-detalhe);
+        }
+
+        nav {
+            background-color: var(--cor-texto);
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--cor-detalhe);
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .secao-museu {
+            background: white;
+            border-left: 5px solid var(--cor-primaria);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .secao-museu:hover {
+            transform: translateY(-2px);
+        }
+
+        .secao-museu h2 {
+            color: var(--cor-primaria);
+            margin
