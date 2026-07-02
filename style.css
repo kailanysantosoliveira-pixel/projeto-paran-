@@ -1,1 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museu Interativo: Raízes Negras e a Identidade Paranaense</title>
+    <style>
+        /* ====================================
+           VARIÁVEIS DE CORES E IDENTIDADE
+           ==================================== */
+        :root {
+            --cor-fundo-base: #120907; /* Terra escuro profundo */
+            --cor-card-fundo: rgba(34, 19, 14, 0.85); /* Café com opacidade para leitura */
+            --cor-texto-claro: #f4eae1; /* Areia suave para alto contraste */
+            --cor-texto-mutado: #c5b3a4; /* Areia escura */
+            --cor-primaria: #a63a20; /* Terracota / Sangue / Resistência */
+            --cor-secundaria: #284c33; /* Verde Erva-Mate */
+            --cor-detalhe: #e59833; /* Ouro / Açúcar / Sol Nascente */
+            --transicao-suave: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
 
+        /* ====================================
+           RESET E CONFIGURAÇÕES GERAIS
+           ==================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--cor-fundo-base);
+            color: var(--cor-texto-claro);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ====================================
+           HERO BANNER (FUNDO ARTÍSTICO COM ÁRVORE E PÔR DO SOL)
+           ==================================== */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            /* SVG embutido em código para garantir o carregamento do Pôr do Sol com a silhueta da árvore (Baobá/Araucária) */
+            background: 
+                linear-gradient(to bottom, rgba(18, 9, 7, 0.2) 0%, rgba(18, 9, 7, 1) 95%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 800' width='100%25' height='100%25'%3E%3Cdefs%3E%3ClinearGradient id='sunset' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23601405'/%3E%3Cstop offset='30%25' stop-color='%23a63a20'/%3E%3Cstop offset='65%25' stop-color='%23d97324'/%3E%3Cstop offset='85%25' stop-color='%23e59833'/%3E%3Cstop offset='100%25' stop-color='%2322130e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='800' fill='url(%23sunset)'/%3E%3Cpath d='M720 800 C720 620 690 530 660 420 C640 350 600 300 520 250 C440 200 320 220 260 160 C210 110 230 40 320 60 C380 75 420 120 480 150 C520 170 560 140 550 80 C540 20 620 0 660 40 C690 70 670 140 700 170 C720 190 740 120 780 70 C820 20 900 40 880 110 C870 150 820 180 840 220 C880 250 960 210 1020 240 C1100 280 1140 350 1080 410 C1020 470 940 430 880 460 C820 490 750 550 740 800 Z' fill='%230a0403'/%3E%3Cpath d='M0 800 Q 350 730 720 770 T 1440 800 Z' fill='%230a0403'/%3E%3C/svg%3E") no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        /* Estilo Extra Bold / Black (900) */
+        .hero-banner h1 {
+            font-size: 3.5rem;
+            font-weight: 900; /* Black */
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin: 0;
+            color: #ffffff;
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(229, 152, 51, 0.4);
+            line-height: 1.1;
+        }
+
+        .hero-banner p {
+            font-size: 1.4rem;
+            font-weight: 700; /* Extra Bold */
+            color: var(--cor-detalhe);
+            margin: 1.5rem 0 0 0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+            max-width: 800px;
+        }
+
+        /* ====================================
+           BOTÕES DE CATEGORIA DA HOME
+           ==================================== */
+        .container-botoes {
+            max-width: 1100px;
+            margin: -3rem auto 3rem auto;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        /* Botões robustos e customizados por borda */
+        .btn-categoria {
+            display: inline-block;
+            background-color: var(--cor-card-fundo);
+            color: var(--cor-texto-claro);
+            text-decoration: none;
+            padding: 1.2rem 2rem;
+            margin: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 900; /* Black */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: var(--transicao-suave);
+        }
+
+        .btn-categoria[href="#quilombolas"] { border-color: var(--cor-primaria); }
+        .btn-categoria[href="#ciclos-economicos"] { border-color: var(--cor-secundaria); }
+        .btn-categoria[href="#resistencia"] { border-color: var(--cor-detalhe); }
+
+        /* Animações e Transições suaves nos botões */
+        .btn-categoria:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+            color: #fff;
+        }
+
+        .btn-categoria[href="#quilombolas"]:hover { background-color: var(--cor-primaria); }
+        .btn-categoria[href="#ciclos-economicos"]:hover { background-color: var(--cor-secundaria); }
+        .btn-categoria[href="#resistencia"]:hover { background-color: var(--cor-detalhe); color: var(--cor-fundo-base); }
+
+        /* ====================================
+           CONTEÚDO E CARD SEÇÕES (EFEITO HOVER SUAVE)
+           ==================================== */
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .secao-museu {
+            background-color: var(--cor-card-fundo);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-top: 6px solid var(--cor-primaria);
+            transition: var(--transicao-suave);
+        }
+
+        .secao-museu:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        #ciclos-economicos { border-top-color: var(--cor-secundaria); }
+        #resistencia { border-top-color: var(--cor-detalhe); }
+
+        .secao-museu h2 {
+            font-size: 2.2rem;
+            font-weight: 900; /* Black */
+            text-transform: uppercase;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        #quilombolas h2 { color: var(--cor-primaria); }
+        #ciclos-economicos h2 { color: #509665; } 
+        #resistencia h2 { color: var(--cor-detalhe); }
+
+        .secao-museu p {
+            font-size: 1.15rem;
+            color: var(--cor-texto-mutado);
+            margin-bottom: 1.5rem;
+        }
+
+        /* ====================================
+           INTERATIVIDADE (ABERTURA SUAVE DE DETALHES)
+           ==================================== */
+        .interativo-btn {
+            background-color: transparent;
+            color: var(--cor-texto-claro);
+            border: 2px solid var(--cor-texto-claro);
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: var(--transicao-suave);
+        }
+
+        .interativo-btn:hover {
+            background-color: var(--cor-texto-claro);
+            color: var(--cor-fundo-base);
+        }
+
+        .painel-oculto {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin-top: 0;
+            padding: 0 1.5rem;
+            transition: all 0.5s ease-in-out; /* Expansão e transição vertical fluida */
+        }
+
+        .painel-oculto.ativo {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-left: 4px solid var(--cor-detalhe);
+        }
+
+        .painel-oculto h3 {
+            margin-top: 0;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        footer {
+            background-color: #090403;
+            color: var(--cor-texto-mutado);
+            text-align: center;
+            padding: 2.5rem 1rem;
+            margin-top: 5rem;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* ====================================
+           RESPONSIVIDADE MÍDIA (CELULAR E TABLET)
+           ==================================== */
+        
+        /* 📱 SELEÇÃO: CELULAR (Até 600px de largura) */
+        @media (max-width: 600px) {
+            .hero-banner {
+                min-height: 50vh;
+                padding: 3rem 1rem;
+                background-attachment: scroll; /* Melhora a performance em celulares antigos */
+            }
+
+            .hero-banner h1 { font-size: 2rem; }
+            .hero-banner p { font-size: 1.1rem; }
+
+            .container-botoes { margin-top: -1.5rem; }
+
+            .btn-categoria {
+                display: block;
+                width: 100%;
+                margin: 0.6rem 0;
+                padding: 1rem;
+                font-size: 1rem;
+            }
+
+            .secao-museu {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .secao-museu h2 { font-size: 1.6rem; }
+            .secao-museu p { font-size: 1.05rem; }
+        }
+
+        /* 📐 SELEÇÃO: TABLET (De 601px até 1024px de largura) */
+        @media (min-width: 601px) and (max-width: 1024px) {
+            .hero-banner {
+                min-height: 60vh;
+                padding: 4rem 1.5rem;
+            }
+
+            .hero-banner h1 { font-size: 2.8rem; }
+
+            .btn-categoria {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .secao-museu { padding: 2.5rem; }
+            .secao-museu h2 { font-size: 1.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-banner">
+        <h1>Raízes Negras<br>e a Identidade Paranaense</h1>
+        <p>Memória, Resistência e Cultura na Construção do Estado</p>
+    </div>
+
+    <div class="container-botoes">
+        <a href="#quilombolas" class="btn-categoria">Cultura Quilombola</a>
+        <a href="#ciclos-economicos" class="btn-categoria">Força de Trabalho</a>
+        <a href="#resistencia" class="btn-categoria">Resistência e Luta</a>
+    </div>
+
+    <main>
+        
+        <section id="quilombolas" class="secao-museu">
+            <h2>Comunidades Quilombolas do Paraná</h2>
+            <p>O Paraná abriga dezenas de comunidades quilombolas que preservam tradições, ancestralidade e o direito à terra. Locais como a comunidade Feixo, Paiol de Telha e os quilombos do Vale do Ribeira guardam a riqueza cultural expressa na culinária, no artesanato e na tradição oral.</p>
+            
+            <button class="interativo-btn" onclick="toggleConteudo('painel-quilombo')">Conhecer uma tradição 🔍</button>
+            
+            <div id="painel-quilombo" class="painel-oculto">
+                <h3>O Fandango e as Celebrações</h3>
+                <p>Muitas comunidades mantêm vivas festas religiosas e manifestações como o Fandango Caiçara (no litoral), que mistura a herança negra e indígena na música, na dança de tamancos e nos mutirões de trabalho comunitário.</p>
+            </div>
+        </section>
+
+        <section id="ciclos-economicos" class="secao-museu">
+            <h2>A Força de Trabalho: Erva-Mate e Açúcar</h2>
+            <p>A economia paranaense foi profundamente moldada pelos braços dos povos escravizados. No litoral, os engenhos de açúcar moviam a província. No interior e na região de Curitiba, a colheita, o transporte e o processamento da erva-mate dependeram fundamentalmente desse conhecimento e força de trabalho.</p>
+            
+            <button class="interativo-btn" onclick="toggleConteudo('painel-trabalho')">Ver detalhes da produção 🔍</button>
+            
+            <div id="painel-trabalho" class="painel-oculto">
+                <h3>O Carijo e o Poteiro</h3>
+                <p>Os trabalhadores negros dominaram técnicas complexas como o carijo (estrutura para secagem da erva-mate), garantindo a qualidade do principal produto de exportação do Paraná no século XIX.</p>
+            </div>
+        </section>
+
+        <section id="resistencia" class="secao-museu">
+            <h2>Resistência e Protagonismo</h2>
+            <p>A population negra nunca aceitou passivamente a opressão. No Paraná, a resistência se deu por meio de fugas, formação de quilombos, revoltas e também pela criação de irmandades religiosas, como a Irmandade de Nossa Senhora do Rosário dos Pretos, que servia como rede de apoio e emancipação.</p>
+            
+            <button class="interativo-btn" onclick="toggleConteudo('painel-resistencia')">Histórias de Luta 🔍</button>
+            
+            <div id="painel-resistencia" class="painel-oculto">
+                <h3>Clubes Sociais Negros</h3>
+                <p>Pós-abolição, o Paraná viu o nascimento de Clubes Sociais Negros, como o Operário Beneficente Treze de Maio em Curitiba, espaços fundamentais de cultura, acolhimento e resistência política contra o racismo estrutural.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Museu Interativo Virtual - Raízes Negras e a Identidade Paranaense.</p>
+    </footer>
+
+    <script>
+        // Função atualizada para aplicar a classe que lida com a transição CSS suave
+        function toggleConteudo(idPainel) {
+            const painel = document.getElementById(idPainel);
+            painel.classList.toggle('ativo');
+        }
+    </script>
+</body>
+</html>
